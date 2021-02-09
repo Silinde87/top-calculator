@@ -15,6 +15,8 @@ function divide(a,b){
 //This function selects the operation based on the operator parameter
 function operate(operator, a, b){
     let result;
+    a = Number(a);
+    b = Number(b);
     switch(operator){
         case '+':
             result = add(a,b);
