@@ -23,6 +23,11 @@ body, div, button{
 button{
     width: 60px;
     height: 50px;
+    border: none;
+    outline: none;
+}
+button:active{
+    border: 1px solid black;
 }
 .double-size{
     width: 120px;
