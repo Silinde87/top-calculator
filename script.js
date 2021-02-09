@@ -31,7 +31,3 @@ fillGrid(symbolLeftGrid, symbolLeftGridKeys, SYMBOL_LEFT_GRID_CLASS, 3);
 fillGrid(numericGrid, numericGridKeys, NUMERIC_GRID_CLASS, 11);
 fillGrid(rightPadGrid, rightPadGridKeys, RIGHT_PAD_GRID_CLASS, 5);
 
-//Adding the keyPad grid to the pad.
-leftPad.appendChild(symbolLeftGrid);
-leftPad.appendChild(numericGrid);
-rightPad.appendChild(rightPadGrid);
