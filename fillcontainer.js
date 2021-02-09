@@ -22,6 +22,7 @@ function fillGrid(currentGrid, keys, classGrid, numKeys){
         key.innerText = keys[i];
         key.classList = classGrid;
         if(key.innerText === '0') key.classList.add('double-size')
+        if(key.innerText === '.') key.id = 'dot';
         currentGrid.appendChild(key);
     }
 }
