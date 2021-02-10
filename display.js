@@ -104,6 +104,7 @@ function leaveDefault(){
     isClicked = false;
     buttonDot.disabled = false;
     enableNumericButons();
+    cleanBorders();
 }
 //This function change the sign of the displayed number
 function changeSign(){
