@@ -9,6 +9,7 @@ body, div, button{
 #container{
     border-radius: 10px;
     width: fit-content;
+    box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.55);
 }
 #display{
     height: 80px;
