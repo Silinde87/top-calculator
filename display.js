@@ -1,6 +1,7 @@
 let buttonList = [...document.querySelectorAll('button')];
 let display = document.getElementById('display');
 let buttonDot = document.getElementById('dot');
+let numericButtonsList = [...document.getElementsByClassName('numeric')];
 let isClicked = false;
 let result = '0';
 let num = '';
@@ -23,12 +24,15 @@ buttonList.forEach(button => button.addEventListener('click', (e) =>{
     }
 
     //NUMERIC BUTTONS CONTROL
-    if(e.target.classList.contains(NUMERIC_GRID_CLASS)){        
+    if(e.target.classList.contains(NUMERIC_GRID_CLASS)){
         //Cleaning the display if operator key is pressed
         if(isClicked){
             display.innerHTML = '0';
         }
-
+        //Max num control
+        if(display.innerHTML.length >= 8){
+            disableNumericButtons();
+        }
         //Controlling if users inputs a 0 or a dot and updates the display
         if(e.target.innerHTML == '0' && display.innerHTML != '0'){
             display.innerHTML += e.target.innerHTML;
@@ -58,7 +62,7 @@ buttonList.forEach(button => button.addEventListener('click', (e) =>{
     //OPERATORS BUTTONS CONTROL
     if(e.target.classList.contains(RIGHT_PAD_GRID_CLASS)){
         cleanBorders();
-        putBorders(e);
+        putBorders(e);        
         num = display.innerHTML;
         if(operator == '' || operator == '='){
             operator = e.target.innerHTML;
@@ -70,6 +74,8 @@ buttonList.forEach(button => button.addEventListener('click', (e) =>{
         }
         if(operator == '=') cleanBorders();
         buttonDot.disabled = false;
+              
+        enableNumericButons();
     }
 }));
 
@@ -97,12 +103,21 @@ function leaveDefault(){
     operator = '';
     isClicked = false;
     buttonDot.disabled = false;
+    enableNumericButons();
 }
 //This function change the sign of the displayed number
 function changeSign(){
-    display.innerHTML = String(Number(display.innerHTML)*-1);
+    display.innerHTML = String(operate(MULTIPLY_OPERATOR,display.innerHTML,'-1'));
 }
 //This function calculates de percent of the displayed number.
 function calcPercent(){
-    display.innerHTML = String(Number(display.innerHTML)*0.01);
+    display.innerHTML = String(operate(MULTIPLY_OPERATOR,display.innerHTML,'0.01'));    
+}
+//This function enables the ability of numeric buttons to be pressed
+function enableNumericButons(){
+    numericButtonsList.forEach(btn => btn.disabled = false);
+}
+//This function disables the ability of numeric buttons to be pressed
+function disableNumericButtons(){
+    numericButtonsList.forEach(btn => btn.disabled = true);
 }
