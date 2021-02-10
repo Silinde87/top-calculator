@@ -5,6 +5,7 @@ let isClicked = false;
 let result = '0';
 let num = '';
 let operator = '';
+
 //this adds click functionality to the buttons
 //Also selects its behavior based on the button pressed
 buttonList.forEach(button => button.addEventListener('click', (e) =>{
@@ -18,8 +19,20 @@ buttonList.forEach(button => button.addEventListener('click', (e) =>{
         if(isClicked){
             display.innerHTML = '0';
         }
+        //Controlling if users inputs a 0 or a dot
+        if(e.target.innerHTML == '0'){
+            display.innerHTML = '0';
+        }else if(e.target.innerHTML == '.'){
+            display.innerHTML = '0.';
+        }else if(display.innerHTML == '0'){
+            display.innerHTML = '';
+            display.innerHTML += e.target.innerHTML;
+        }else{
+            display.innerHTML += e.target.innerHTML;
+        }
+        
         cleanBorders();
-        display.innerHTML += e.target.innerHTML;
+        
         //this controls the dot button is pressed once
         if(e.target.textContent.includes('.')){
             buttonDot.disabled = true;
@@ -39,6 +52,7 @@ buttonList.forEach(button => button.addEventListener('click', (e) =>{
             operator = e.target.innerHTML;
             showDisplay(result);
         }
+        if(operator == '=') cleanBorders();
     }
 }));
 
