@@ -44,9 +44,13 @@ function operate(operator, a, b){
             let maxDecimals = 8 - countInts(result)
             return result.toFixed(maxDecimals);
         }
+    }else if(result == Infinity){
+        return "Undefined";
+    }else if(isNaN(result)){        
+        return "Indeterminate";
     }else{
         return result;
-    }
+    }    
 }
 
 //This function count the number of decimals from value passed
