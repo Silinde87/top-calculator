@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 body, div, button{
     margin: 0;
     padding: 0;
@@ -12,8 +18,8 @@ body, div, button{
     box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.55);
 }
 #display{
-    height: 80px;
-    font-size: 60px;
+    height: 95px;
+    font-size: 70px;
     padding-right: 5px;
     display: flex;
     justify-content:flex-end;
@@ -29,7 +35,7 @@ body, div, button{
     border-bottom-right-radius: 10px;
 }
 #left-pad{
-    width: 180px;
+    width: 270px;
 }
 .symbol-left{
     background-color: #423939;
@@ -41,20 +47,20 @@ body, div, button{
     background-color: #fd8d0e;
 }
 #right-pad{
-    width: 60px;
+    width: 90px;
 }
 button{
-    width: 58px;
-    height: 49px;
+    width: 88px;
+    height: 75px;
     border: none;
     outline: none;
     margin: 1px;
-    font-size: 23px;
+    font-size: 30px;
     font-weight: bold;
 }
 button:active{
     border: 1px solid black;
 }
 .double-size{
-    width: 118px;
+    width: 178px;
 }
