@@ -6,24 +6,40 @@ let result = '0';
 let num = '';
 let operator = '';
 
-//this adds click functionality to the buttons
-//Also selects its behavior based on the button pressed
+//This adds click functionality to the buttons
+//also selects its behavior based on the button pressed
 buttonList.forEach(button => button.addEventListener('click', (e) =>{
-    //Clear button. Removes value from all variables
-    if(e.target.innerHTML == 'AC'){
-        leaveDefault();
+    //FUNCTION BUTTONS CONTROL
+    switch(e.target.innerHTML){
+        case 'AC':
+            leaveDefault();
+            break;
+        case '±':
+            changeSign();
+            break;
+        case '%':
+            calcPercent();
+            break;
     }
-    //Numeric buttons. Updates the display
+
+    //NUMERIC BUTTONS CONTROL
     if(e.target.classList.contains(NUMERIC_GRID_CLASS)){        
         //Cleaning the display if operator key is pressed
         if(isClicked){
             display.innerHTML = '0';
         }
-        //Controlling if users inputs a 0 or a dot
-        if(e.target.innerHTML == '0'){
+
+        //Controlling if users inputs a 0 or a dot and updates the display
+        if(e.target.innerHTML == '0' && display.innerHTML != '0'){
+            display.innerHTML += e.target.innerHTML;
+        }else if(e.target.innerHTML == '0'){
             display.innerHTML = '0';
         }else if(e.target.innerHTML == '.'){
-            display.innerHTML = '0.';
+            if(display.innerHTML == '0'){
+                display.innerHTML = '0.';
+            }else{
+                display.innerHTML += '.';
+            }
         }else if(display.innerHTML == '0'){
             display.innerHTML = '';
             display.innerHTML += e.target.innerHTML;
@@ -38,11 +54,11 @@ buttonList.forEach(button => button.addEventListener('click', (e) =>{
             buttonDot.disabled = true;
         }
     }
-    //Operators button.
+
+    //OPERATORS BUTTONS CONTROL
     if(e.target.classList.contains(RIGHT_PAD_GRID_CLASS)){
         cleanBorders();
         putBorders(e);
-        //debugger
         num = display.innerHTML;
         if(operator == '' || operator == '='){
             operator = e.target.innerHTML;
@@ -53,6 +69,7 @@ buttonList.forEach(button => button.addEventListener('click', (e) =>{
             showDisplay(result);
         }
         if(operator == '=') cleanBorders();
+        buttonDot.disabled = false;
     }
 }));
 
@@ -69,15 +86,23 @@ function putBorders(elem){
     isClicked = true;
 }
 
-//this function update display value
+//This function update display value
 function showDisplay(val){
     display.innerHTML = val;
 }
-
+//This function cleans the calc and leave all variables to default.
 function leaveDefault(){
     display.innerHTML = '0';
     result = '0';
     operator = '';
     isClicked = false;
     buttonDot.disabled = false;
+}
+//This function change the sign of the displayed number
+function changeSign(){
+    display.innerHTML = String(Number(display.innerHTML)*-1);
+}
+//This function calculates de percent of the displayed number.
+function calcPercent(){
+    display.innerHTML = String(Number(display.innerHTML)*0.01);
 }
