@@ -21,7 +21,13 @@ function fillGrid(currentGrid, keys, classGrid, numKeys){
         let key = document.createElement('button');
         key.innerText = keys[i];
         key.classList = classGrid;
-        if(key.innerText === '0') key.classList.add('double-size')
+        if(key.innerText === '0'){
+            key.classList.add('double-size');
+            key.style.borderBottomLeftRadius = '10px';
+        }
+        if(key.innerText === '='){
+            key.style.borderBottomRightRadius = '10px';
+        }
         if(key.innerText === '.') key.id = 'dot';
         currentGrid.appendChild(key);
     }
