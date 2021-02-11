@@ -10,11 +10,16 @@ let num = '';
 let operator = '';
 let operation = '';
 
+//Click event listener
+buttonList.forEach(button => button.addEventListener('click', (e) =>{
+    controlButtons(e);
+}));
+
 //This adds click functionality to the buttons
 //also selects its behavior based on the button pressed
-buttonList.forEach(button => button.addEventListener('click', (e) =>{
+function controlButtons(e) {
     //FUNCTION BUTTONS CONTROL
-    switch(e.target.innerHTML){
+    switch (e.target.innerHTML) {
         case 'AC':
             leaveDefault();
             break;
@@ -27,68 +32,69 @@ buttonList.forEach(button => button.addEventListener('click', (e) =>{
     }
 
     //NUMERIC BUTTONS CONTROL
-    if(e.target.classList.contains(NUMERIC_GRID_CLASS)){
+    if (e.target.classList.contains(NUMERIC_GRID_CLASS)) {
         //Cleaning the display if operator key is pressed
-        if(isClicked){
+        if (isClicked) {
             display.innerHTML = '0';
         }
         //Max num control
-        if(display.innerHTML.length >= 8){
+        if (display.innerHTML.length >= 8) {
             disableButtons(numericButtonsList);
         }
         //Controlling if users inputs a 0 or a dot and updates the display
-        if(e.target.innerHTML == '0' && display.innerHTML != '0'){
+        if (e.target.innerHTML == '0' && display.innerHTML != '0') {
             display.innerHTML += e.target.innerHTML;
-        }else if(e.target.innerHTML == '0'){
+        } else if (e.target.innerHTML == '0') {
             display.innerHTML = '0';
-        }else if(e.target.innerHTML == '.'){
-            if(display.innerHTML == '0'){
+        } else if (e.target.innerHTML == '.') {
+            if (display.innerHTML == '0') {
                 display.innerHTML = '0.';
-            }else{
+            } else {
                 display.innerHTML += '.';
             }
-        //Call to cleaning the current operation display
-        }else if(operator == '='){
+            //Call to cleaning the current operation display
+        } else if (operator == '=') {
             cleanOpDisplay();
             cleanAndUpdateDisplay(e);
             operator = '';
-        }else if(display.innerHTML == '0' || operator == '='){
+        } else if (display.innerHTML == '0' || operator == '=') {
             cleanAndUpdateDisplay(e);
-        }else{
+        } else {
             display.innerHTML += e.target.innerHTML;
         }
 
         showOpDisplay(e);
         cleanBorders();
-        
+
         //this controls the dot button is pressed once
-        if(e.target.textContent.includes('.')){
+        if (e.target.textContent.includes('.')) {
             buttonDot.disabled = true;
         }
     }
 
     //OPERATORS BUTTONS CONTROL
-    if(e.target.classList.contains(RIGHT_PAD_GRID_CLASS)){
+    if (e.target.classList.contains(RIGHT_PAD_GRID_CLASS)) {
         cleanBorders();
-        putBorders(e);    
+        putBorders(e);
         num = display.innerHTML;
-        if(operator == '' || operator == '='){
+        if (operator == '' || operator == '=') {
             operator = e.target.innerHTML;
             result = display.innerHTML;
-        }else{
-            result = operate(operator, result, num)
+        } else {
+            result = operate(operator, result, num);
             operator = e.target.innerHTML;
             showDisplay(result);
-            
+
         }
         //if(operator == '=') cleanOpDisplay();
         showOpDisplay(e);
-        
-        if(operator == '=') cleanBorders();
+
+        if (operator == '=')
+            cleanBorders();
         buttonDot.disabled = false;
         enableButons(numericButtonsList);
     }
-}));
+}
 
 //This function clean and updates the display
 function cleanAndUpdateDisplay(elem) {
