@@ -20,16 +20,25 @@ body, div, button{
     height: 575px;
     width: 432px;
 }
-#display{
-    height: 19%;
-    font-size: 70px;
-    padding-right: 5px;
+#operation{
+    height: 5%;
+    font-size: 20px;
+    padding-right: 8px;
     display: flex;
     justify-content:flex-end;
     align-items: flex-end;
     background-color: #292125;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+#display{
+    height: 14%;
+    font-size: 70px;
+    padding-right: 5px;
+    display: flex;
+    justify-content:flex-end;
+    align-items: flex-end;
+    background-color: #292125;
 }
 #pad{
     height: 81%;
