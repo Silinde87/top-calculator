@@ -12,41 +12,44 @@ let operation = '';
 
 //Click event listener
 buttonList.forEach(button => button.addEventListener('click', (e) =>{
-    controlButtons(e);
+    controlButtons(e.target.innerHTML);    
 }));
 
 //This adds click functionality to the buttons
 //also selects its behavior based on the button pressed
-function controlButtons(e) {
+function controlButtons(btn) {
     //FUNCTION BUTTONS CONTROL
-    switch (e.target.innerHTML) {
-        case 'AC':
-            leaveDefault();
-            break;
-        case '±':
-            changeSign();
-            break;
-        case '%':
-            calcPercent();
-            break;
+    if(symbolLeftGridKeys.includes(btn)){
+        switch (btn) {
+            case 'AC':
+                leaveDefault();
+                break;
+            case '±':
+                changeSign();
+                break;
+            case '%':
+                calcPercent();
+                break;
+        }
     }
 
     //NUMERIC BUTTONS CONTROL
-    if (e.target.classList.contains(NUMERIC_GRID_CLASS)) {
+    if (numericGridKeys.includes(btn)) {        
         //Cleaning the display if operator key is pressed
-        if (isClicked) {
+        if (isClicked) {            
             display.innerHTML = '0';
+            enableButons(operationButtonsList);
         }
         //Max num control
         if (display.innerHTML.length >= 8) {
             disableButtons(numericButtonsList);
         }
         //Controlling if users inputs a 0 or a dot and updates the display
-        if (e.target.innerHTML == '0' && display.innerHTML != '0') {
-            display.innerHTML += e.target.innerHTML;
-        } else if (e.target.innerHTML == '0') {
+        if (btn == '0' && display.innerHTML != '0') {
+            display.innerHTML += btn;
+        } else if (btn == '0') {
             display.innerHTML = '0';
-        } else if (e.target.innerHTML == '.') {
+        } else if (btn == '.') {
             if (display.innerHTML == '0') {
                 display.innerHTML = '0.';
             } else {
@@ -55,56 +58,55 @@ function controlButtons(e) {
             //Call to cleaning the current operation display
         } else if (operator == '=') {
             cleanOpDisplay();
-            cleanAndUpdateDisplay(e);
+            cleanAndUpdateDisplay(btn);
             operator = '';
         } else if (display.innerHTML == '0' || operator == '=') {
-            cleanAndUpdateDisplay(e);
+            cleanAndUpdateDisplay(btn);
         } else {
-            display.innerHTML += e.target.innerHTML;
+            display.innerHTML += btn;
         }
 
-        showOpDisplay(e);
+        showOpDisplay(btn);
         cleanBorders();
 
         //this controls the dot button is pressed once
-        if (e.target.textContent.includes('.')) {
+        if (display.innerHTML.includes('.')) {
             buttonDot.disabled = true;
         }
-    }
+    }    
 
     //OPERATORS BUTTONS CONTROL
-    if (e.target.classList.contains(RIGHT_PAD_GRID_CLASS)) {
+    if (rightPadGridKeys.includes(btn)) {
         cleanBorders();
-        putBorders(e);
+        putBorders(btn);
         num = display.innerHTML;
         if (operator == '' || operator == '=') {
-            operator = e.target.innerHTML;
+            operator = btn;
             result = display.innerHTML;
         } else {
             result = operate(operator, result, num);
-            operator = e.target.innerHTML;
+            operator = btn;
             showDisplay(result);
 
         }
         //if(operator == '=') cleanOpDisplay();
-        showOpDisplay(e);
+        showOpDisplay(btn);
 
-        if (operator == '=')
-            cleanBorders();
+        if (operator == '=') cleanBorders();
         buttonDot.disabled = false;
         enableButons(numericButtonsList);
     }
 }
 
 //This function clean and updates the display
-function cleanAndUpdateDisplay(elem) {
+function cleanAndUpdateDisplay(valBtn) {
     display.innerHTML = '';
-    display.innerHTML += elem.target.innerHTML;
+    display.innerHTML += valBtn;
 }
 
 //This function updates the current operation display
-function showOpDisplay(elem) {
-    operation += elem.target.innerHTML;
+function showOpDisplay(valBtn) {
+    operation += valBtn;
     operationDisplay.innerHTML = operation;
 }
 
@@ -123,15 +125,18 @@ function cleanBorders(){
 }
 
 //This function put a border at the selected button
-function putBorders(elem){
-    elem.target.style.border = '1px solid black';
+function putBorders(valBtn){    
+    let rightPads = [...document.getElementsByClassName('right-pad')];
+    rightPads.forEach(btn => {
+        if(btn.innerHTML == valBtn) btn.style.border = '1px solid black';
+    });
     isClicked = true;
     disableButtons(operationButtonsList);
 }
 
 //This function update display value
-function showDisplay(val){
-    display.innerHTML = val;
+function showDisplay(valBtn){
+    display.innerHTML = valBtn;
 }
 //This function cleans the calc and leave all variables to default.
 function leaveDefault(){
