@@ -15,6 +15,8 @@ buttonList.forEach(button => button.addEventListener('click', (e) =>{
     controlButtons(e.target.innerHTML);    
 }));
 
+window.addEventListener("keydown", setInput);
+
 //This adds click functionality to the buttons
 //also selects its behavior based on the button pressed
 function controlButtons(btn) {
@@ -76,7 +78,7 @@ function controlButtons(btn) {
     }    
 
     //OPERATORS BUTTONS CONTROL
-    if (rightPadGridKeys.includes(btn)) {
+    if (rightPadGridKeys.includes(btn)) {        
         cleanBorders();
         putBorders(btn);
         num = display.innerHTML;
@@ -89,10 +91,14 @@ function controlButtons(btn) {
             showDisplay(result);
 
         }
-        //if(operator == '=') cleanOpDisplay();
+        //debugger
+        if(operationDisplay.innerHTML.substr(-1) == '=') {
+            cleanOpDisplay();
+            showOpDisplay(result)
+        }
         showOpDisplay(btn);
+        if(operator == '=') cleanBorders();
 
-        if (operator == '=') cleanBorders();
         buttonDot.disabled = false;
         enableButons(numericButtonsList);
     }
@@ -165,4 +171,30 @@ function enableButons(elem){
 //This function disables the ability of passed element buttons to be pressed
 function disableButtons(elem){
     elem.forEach(btn => btn.disabled = true);
+}
+
+function setInput(e){
+    //console.log(e.key);
+    let input = '';
+    if(isClicked == false){
+        if(rightPadGridKeys.includes(e.key)){
+            input = e.key;
+            isClicked = true;
+        } 
+        if(e.key === 'Delete' || e.key === 'Enter' || e.key === '/' || e.key === '*'){
+            input = convertOperator(e.key);
+            isClicked = true;
+        }
+    }
+    if(display.innerHTML.length >= 8 && isClicked == false)  return;
+    if(numericGridKeys.includes(e.key)) input = e.key;
+
+    controlButtons(input);
+}
+
+function convertOperator(keyboardOperator){
+    if(keyboardOperator === 'Delete') return 'AC';
+    if(keyboardOperator === 'Enter') return '=';
+    if(keyboardOperator === '/') return DIVIDE_OPERATOR;
+    if(keyboardOperator === '*') return MULTIPLY_OPERATOR;
 }
