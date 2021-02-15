@@ -17,22 +17,24 @@ body, div, button{
     border-radius: 10px;
     width: fit-content;
     box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.55);
-    height: 575px;
     width: 432px;
 }
 #operation{
-    height: 5%;
-    font-size: 20px;
+    min-height: 30px;
+    height: fit-content;
+    text-overflow: ellipsis;
+    font-size: 20px;    
+    padding-left: 8px;
     padding-right: 8px;
     display: flex;
     justify-content:flex-end;
-    align-items: flex-end;
+    align-items: flex-end;    
     background-color: #292125;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
 #display{
-    height: 14%;
+    height: 80px;
     font-size: 70px;
     padding-right: 5px;
     display: flex;
@@ -41,7 +43,7 @@ body, div, button{
     background-color: #292125;
 }
 #pad{
-    height: 81%;
+    height: 465px;
     display: flex;
     background-color: #292125;
     border-bottom-left-radius: 10px;
@@ -84,7 +86,7 @@ button:active{
     color: black;
     text-decoration: none;
     display: flex;
-    align-items: center;
+    align-items: center;    
 }
 .fab{
     margin-left: 10px;
