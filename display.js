@@ -15,15 +15,16 @@ buttonList.forEach(button => button.addEventListener('click', (e) =>{
     controlButtons(e.target.innerHTML);    
 }));
 
+//Keyboard event listener
 window.addEventListener("keydown", setInput);
 
-//This adds click functionality to the buttons
-//also selects its behavior based on the button pressed
+//This adds functionality to the buttons also selects 
+//its behavior based on the text of the button pressed
 function controlButtons(btn) {
     //FUNCTION BUTTONS CONTROL
     if(symbolLeftGridKeys.includes(btn)){
         switch (btn) {
-            case 'AC':
+            case 'AC':             
                 leaveDefault();
                 break;
             case '±':
@@ -91,7 +92,8 @@ function controlButtons(btn) {
             showDisplay(result);
 
         }
-        //debugger
+        //Clean and update opDisplay if operation button is pressed
+        //after equal button.
         if(operationDisplay.innerHTML.substr(-1) == '=') {
             cleanOpDisplay();
             showOpDisplay(result)
@@ -173,8 +175,9 @@ function disableButtons(elem){
     elem.forEach(btn => btn.disabled = true);
 }
 
-function setInput(e){
-    //console.log(e.key);
+//Detect and convert the key from keyboard pressed
+//and pass the value to the controlButtons function.
+function setInput(e){    
     let input = '';
     if(isClicked == false){
         if(rightPadGridKeys.includes(e.key)){
@@ -186,12 +189,14 @@ function setInput(e){
             isClicked = true;
         }
     }
+    //Max length control
     if(display.innerHTML.length >= 8 && isClicked == false)  return;
     if(numericGridKeys.includes(e.key)) input = e.key;
 
     controlButtons(input);
 }
 
+//Transform some keys values to be used in the main function
 function convertOperator(keyboardOperator){
     if(keyboardOperator === 'Delete') return 'AC';
     if(keyboardOperator === 'Enter') return '=';
